@@ -40,7 +40,8 @@ paths:
         '200': { description: OK }
     post:
       summary: Create restaurant (admin)
-      security: - bearerAuth: [] 
+      security: 
+        - bearerAuth: [] 
       responses:
         '200': { description: Created }
   /restaurants/{id}:
