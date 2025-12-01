@@ -3,7 +3,11 @@ info:
   title: FoodApp API
   version: "1.0"
 servers:
+<<<<<<< HEAD
   - url: http://localhost:3000
+=======
+  - url: https://kagiso-food-delivery-backend-ktbw.onrender.com
+>>>>>>> 99a73944674e29ff56e9b20b68a2bbfc98435fe4
 paths:
   /auth/register:
     post:
@@ -40,7 +44,12 @@ paths:
         '200': { description: OK }
     post:
       summary: Create restaurant (admin)
+<<<<<<< HEAD
       security: [ bearerAuth: [] ]
+=======
+      security: 
+        - bearerAuth: [] 
+>>>>>>> 99a73944674e29ff56e9b20b68a2bbfc98435fe4
       responses:
         '200': { description: Created }
   /restaurants/{id}:
