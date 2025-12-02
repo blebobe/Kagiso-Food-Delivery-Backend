@@ -2,7 +2,9 @@
 import prisma from "../prisma.js";
 export const getRestaurants = async (req, res) => {
   try {
-    const restaurants = await prisma.restaurant.findMany();
+    const restaurants = await prisma.restaurant.findMany({
+      where: { location: "Kagiso" }
+    });
     res.json(restaurants);
   } catch (err) {
     console.error("getRestaurants error", err);

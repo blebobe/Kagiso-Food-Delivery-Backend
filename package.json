@@ -1,5 +1,5 @@
 {
-  "name": "foodapp-backend",
+  "name": "kasi-food-delivery-backend",
   "version": "1.0.0",
   "type": "module",
   "main": "src/server.js",
@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
-    "bcrypt": "^5.1.0",
+    "axios": "^1.4.0",
+    "bcryptjs": "^3.0.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -21,8 +22,7 @@
     "socket.io": "^4.7.1",
     "stripe": "^11.0.0",
     "swagger-ui-express": "^4.6.3",
-    "yamljs": "^0.3.0",
-    "axios": "^1.4.0"
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

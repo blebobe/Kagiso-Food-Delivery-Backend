@@ -1,4 +1,4 @@
-# Deployment & CI/CD — FoodApp Backend
+# Deployment & CI/CD — Kasi Food Delivery App Backend
 
 Set env vars in your host:
 - DATABASE_URL

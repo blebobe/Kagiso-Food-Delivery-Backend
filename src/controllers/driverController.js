@@ -20,3 +20,47 @@ export const updateDriverLocation = async (req, res) => {
     res.json(driver);
   } catch (err) { console.error(err); res.status(500).json({ message: "Failed to update location" }); }
 };
+export const getDriverEarnings = async (req, res) => {
+  try {
+    const driverId = Number(req.params.id);
+    const driver = await prisma.driver.findUnique({
+      where: { id: driverId },
+      include: { orders: true }
+    });
+    if (!driver) {
+      return res.status(404).json({ message: "Driver not found" });
+    }
+    res.json({
+      id: driver.id,
+      name: driver.name,
+      totalDeliveries: driver.totalDeliveries,
+      totalEarnings: driver.totalEarnings,
+      perDelivery: 15,
+      orders: driver.orders
+    });
+  } catch (err) { console.error(err); res.status(500).json({ message: "Failed to fetch earnings" }); }
+};
+export const updateOrderDelivered = async (req, res) => {
+  try {
+    const orderId = Number(req.params.id);
+    const driverId = Number(req.user.id);
+    const order = await prisma.order.findUnique({ where: { id: orderId } });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    const updatedOrder = await prisma.order.update({
+      where: { id: orderId },
+      data: { status: "delivered" }
+    });
+    await prisma.driver.update({
+      where: { id: order.driverId },
+      data: {
+        totalDeliveries: { increment: 1 },
+        totalEarnings: { increment: order.driverPay }
+      }
+    });
+    const io = getIo();
+    if (io) io.to(`order_${orderId}`).emit("order:delivered", { orderId, driverId: order.driverId });
+    res.json(updatedOrder);
+  } catch (err) { console.error(err); res.status(500).json({ message: "Failed to update delivery status" }); }
+};
