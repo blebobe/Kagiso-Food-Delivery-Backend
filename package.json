@@ -10,7 +10,7 @@
 
   "scripts": {
     "start": "node src/server.js",
-    "build": "prisma generate"
+    "build": "npx prisma generate"
   },
 
   "dependencies": {
@@ -31,6 +31,6 @@
 
   "devDependencies": {
     "nodemon": "^3.0.1",
-    "prisma": "^7.2.0"
+    
   }
 }
