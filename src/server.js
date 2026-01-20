@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
-import { PrismaClient } from "@prisma/client",
+import { PrismaClient } from "@prisma/client";
 import { Server as SocketServer } from "socket.io";
 import authRoutes from "./routes/authRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
