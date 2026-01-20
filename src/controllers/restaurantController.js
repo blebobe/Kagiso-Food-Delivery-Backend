@@ -36,6 +36,7 @@ export const getRestaurantById = async (req, res) => {
 // CREATE restaurant
 export const createRestaurant = async (req, res) => {
   try {
+    console.log("BODY RECEIVED:", req.body);
     const { name, description, location, isOpen } = req.body;
 
     if (!name || !location) {
