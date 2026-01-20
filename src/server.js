@@ -52,7 +52,6 @@ app.get("/db-test", async (req, res) => {
 
 // Routes
 app.use(cors());
-app.use(express.json());
 setupSwagger(app);
 app.get("/", (req, res) => res.json({ message: "Food Delivery Backend Running 🚀" }));
 app.use("/auth", authRoutes);
