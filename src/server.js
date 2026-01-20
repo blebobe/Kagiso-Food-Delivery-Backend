@@ -1,8 +1,11 @@
 // src/server.js
+
+// Imports
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
+import { PrismaClient } from "@prisma/client",
 import { Server as SocketServer } from "socket.io";
 import authRoutes from "./routes/authRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
@@ -19,8 +22,35 @@ import payfastWebhook from "./routes/payfastWebhook.js";
 import setupSwagger from "./swagger.js";
 import errorHandler from "./middleware/errorHandler.js";
 import { initSocket } from "./socket.js";
+
+// Load env vars
 dotenv.config();
+
+// Init app
 const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Init Prisma 
+const prisma = new PrismaClient();
+
+// DB Test Route
+app.get("/db-test", async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ database: "connected ✅" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      database: "connection failed ❌",
+      error: error.message,
+    });
+  }
+});
+
+// Routes
 app.use(cors());
 app.use(express.json());
 setupSwagger(app);
