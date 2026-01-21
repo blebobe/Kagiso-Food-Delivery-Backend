@@ -37,24 +37,31 @@ export const getRestaurantById = async (req, res) => {
 export const createRestaurant = async (req, res) => {
   try {
     console.log("BODY RECEIVED:", req.body);
-    const { name, description, location, isOpen } = req.body;
+    const { name, description, location, } = req.body;
 
     if (!name || !location) {
-      return res.status(400).json({ message: "Name and location are required" });
+      return res.status(400).json({ 
+        message: "Name and location are required"
+     });
     }
 
     const restaurant = await prisma.restaurant.create({
       data: {
         name,
-        description,
-        location,
-        isOpen: isOpen ?? true
+        description: description || "",
+        location
+        
       }
     });
+    //  Sending Response 
+    return res.status(201).json(restaurant);
 
-    res.status(201).json(restaurant);
-  } catch (err) {
-    console.error("createRestaurant error", err);
-    res.status(500).json({ message: "Failed to create restaurant" });
+  } catch (error) {
+    console.error("CREATE RESTAURANT ERROR:", error);
+
+    return res.status(500).json({ 
+     message: "Failed to create restaurant", 
+     error: error.message,  
+    });
   }
 };
